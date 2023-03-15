@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PipeMiddleScript : MonoBehaviour
+public class BirdScript : MonoBehaviour
 {
-
+    public Rigidbody2D myrigidbody;
+    public float flapStrength;
     public LogicScript logic;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,14 +17,15 @@ public class PipeMiddleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (Input.GetKeyDown(KeyCode.Space) == true)
+        {
+            myrigidbody.velocity = Vector2.up * flapStrength;
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 3)
-        {
-            logic.addScore(1);
-        }
+        logic.gameOver();
     }
 }
